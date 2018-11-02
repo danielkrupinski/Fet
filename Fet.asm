@@ -20,6 +20,9 @@ section '.text' code executable
 
 main:
     stdcall findProcessId
+    invoke ExitProcess, 0
+
+error:
     invoke ExitProcess, 1
 
 proc findProcessId
@@ -33,7 +36,17 @@ proc findProcessId
     mov [processEntry.dwSize], sizeof.PROCESSENTRY32
     lea eax, [snapshot]
     lea ebx, [processEntry]
-    invoke Process32First, dword [eax], dword [ebx]
+    invoke Process32First, dword [eax], ebx
+    cmp eax, 1
+    jne error
+    loop1:
+        lea eax, [snapshot]
+        lea ebx, [processEntry]
+        invoke Process32Next, dword [eax], ebx
+        cmp eax, 1
+        jne error
+        jmp loop1
+
     ret
 endp
 
