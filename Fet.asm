@@ -7,6 +7,10 @@ section '.text' code executable
 
 main:
 
+proc findProcessId
+
+endp
+
 section '.idata' data readable import
 
 library kernel32, 'kernel32.dll'
