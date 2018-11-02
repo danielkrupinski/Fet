@@ -1,4 +1,4 @@
-format PE GUI 6.1
+format PE GUI 6.0
 entry main
 
 include 'INCLUDE/win32ax.inc'
@@ -6,6 +6,7 @@ include 'INCLUDE/win32ax.inc'
 section '.text' code executable
 
 main:
+    invoke ExitProcess, 1
 
 proc findProcessId
     locals
