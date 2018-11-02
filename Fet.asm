@@ -9,8 +9,11 @@ main:
 
 proc findProcessId
     locals
-        processEntry PROCESSENTRY32
+        processEntry PROCESSENTRY32 ?
+        snapshot HANDLE ?
     endl
+
+    mov [processEntry.dwSize], sizeof(PROCESSENTRY32)
 endp
 
 section '.idata' data readable import
