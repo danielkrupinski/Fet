@@ -83,16 +83,16 @@ proc findModuleBase
     jne error
     loop1:
         lea eax, [snapshot]
-        lea ebx, [processEntry]
+        lea ebx, [moduleEntry]
         invoke Module32Next, dword [eax], ebx
         cmp eax, 1
         jne error
-        lea eax, [processEntry.szExeFile]
-        cinvoke strcmp, <'csgo.exe', 0>, eax
+        lea eax, [moduleEntry.szModule]
+        cinvoke strcmp, <'client_panorama.dll', 0>, eax
         cmp eax, 0
         jne loop1
 
-    mov eax, [processEntry.th32ProcessID]
+    mov eax, [moduleEntry.modBaseAddr]
     ret
 endp
 
