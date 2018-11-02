@@ -52,10 +52,14 @@ endp
 
 section '.idata' data readable import
 
-library kernel32, 'kernel32.dll'
+library kernel32, 'kernel32.dll', \
+        msvcrt, 'msvcrt.dll'
 
 import kernel32, \
        CreateToolhelp32Snapshot, 'CreateToolhelp32Snapshot', \
        OpenProcess, 'OpenProcess', \
        Process32First, 'Process32First', \
        ExitProcess, 'ExitProcess'
+
+import msvcrt, \
+       strcmp, 'strcmp'
