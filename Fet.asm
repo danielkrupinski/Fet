@@ -47,7 +47,10 @@ proc findProcessId
         jne error
         lea eax, [processEntry.szExeFile]
         cinvoke strcmp, <'csgo.exe', 0>, eax
+        cmp eax, 0
+        jne loop1
 
+    mov eax, [processEntry.th32ProcessID]
     ret
 endp
 
@@ -64,4 +67,4 @@ import kernel32, \
        ExitProcess, 'ExitProcess'
 
 import msvcrt, \
-       strcmp, 'strcmp'
+       strcmp, 'strcmp', \
