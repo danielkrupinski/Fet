@@ -28,8 +28,9 @@ proc findProcessId
         snapshot dd ?
     endl
 
-    mov [processEntry.dwSize], sizeof.PROCESSENTRY32
     invoke CreateToolhelp32Snapshot, 0x2, 0
+    mov [snapshot], eax
+    mov [processEntry.dwSize], sizeof.PROCESSENTRY32
     ret
 endp
 
@@ -40,4 +41,5 @@ library kernel32, 'kernel32.dll'
 import kernel32, \
        CreateToolhelp32Snapshot, 'CreateToolhelp32Snapshot', \
        OpenProcess, 'OpenProcess', \
+       Process32First, 'Process32First', \
        ExitProcess, 'ExitProcess'
