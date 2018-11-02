@@ -54,6 +54,10 @@ proc findProcessId
     ret
 endp
 
+proc findModuleBase
+
+endp
+
 section '.idata' data readable import
 
 library kernel32, 'kernel32.dll', \
