@@ -22,4 +22,5 @@ library kernel32, 'kernel32.dll'
 
 import kernel32, \
        CreateToolhelp32Snapshot, 'CreateToolhelp32Snapshot', \
-       OpenProcess, 'OpenProcess'
+       OpenProcess, 'OpenProcess', \
+       ExitProcess, 'ExitProcess'
