@@ -8,7 +8,9 @@ section '.text' code executable
 main:
 
 proc findProcessId
-
+    locals
+        processEntry PROCESSENTRY32
+    endl
 endp
 
 section '.idata' data readable import
