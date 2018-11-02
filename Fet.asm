@@ -45,7 +45,8 @@ proc findProcessId
         invoke Process32Next, dword [eax], ebx
         cmp eax, 1
         jne error
-        jmp loop1
+        lea eax, [processEntry.szExeFile]
+        cinvoke strcmp, <'csgo.exe', 0>, eax
 
     ret
 endp
