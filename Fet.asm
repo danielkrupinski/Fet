@@ -31,6 +31,9 @@ proc findProcessId
     invoke CreateToolhelp32Snapshot, 0x2, 0
     mov [snapshot], eax
     mov [processEntry.dwSize], sizeof.PROCESSENTRY32
+    lea eax, [snapshot]
+    lea ebx, [processEntry]
+    invoke Process32First, dword [eax], dword [ebx]
     ret
 endp
 
