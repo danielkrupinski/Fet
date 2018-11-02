@@ -60,6 +60,7 @@ import kernel32, \
        CreateToolhelp32Snapshot, 'CreateToolhelp32Snapshot', \
        OpenProcess, 'OpenProcess', \
        Process32First, 'Process32First', \
+       Process32Next, 'Process32Next', \
        ExitProcess, 'ExitProcess'
 
 import msvcrt, \
