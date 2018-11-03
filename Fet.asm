@@ -1,4 +1,4 @@
-format PE GUI 6.0
+format PE console 6.0
 entry main
 
 include 'INCLUDE/win32ax.inc'
@@ -34,6 +34,8 @@ section '.text' code executable
 main:
     stdcall findProcessId
     stdcall findModuleBase, eax
+    cinvoke printf, <'Client base: %d', 0>, eax
+    cinvoke getchar
     invoke ExitProcess, 0
 
 error:
@@ -112,4 +114,6 @@ import kernel32, \
        ExitProcess, 'ExitProcess'
 
 import msvcrt, \
-       strcmp, 'strcmp'
+       strcmp, 'strcmp', \
+       printf, 'printf', \
+       getchar, 'getchar'
