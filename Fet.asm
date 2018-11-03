@@ -101,6 +101,9 @@ endp
 
 section '.bss' data readable writable
 
+
+section '.rdata' data readable
+
 section '.idata' data readable import
 
 library kernel32, 'kernel32.dll', \
