@@ -39,7 +39,7 @@ main:
     cinvoke printf, <'Client base: %d', 0>, [clientBase]
     cinvoke getchar
     cinvoke printf, <'PID: %d', 0>, [processId]
-    invoke OpenProcess, PROCESS_VM_READ + PROCESS_VM_WRITE, FALSE, [processId]
+    invoke OpenProcess, PROCESS_ALL_ACCESS, FALSE, [processId]
     mov [processHandle], eax
     cinvoke printf, <'Handle: %d', 0>, eax
 
@@ -53,6 +53,52 @@ main:
 
     cinvoke printf, <'LocalPlayer: %d', 0>, [localPlayer]
     cinvoke getchar
+
+    triggerbot:
+    mov [crosshairID], 0
+    mov [team], 0
+    cmp [localPlayer], 0
+    je loop1
+    invoke GetAsyncKeyState, 0x12
+    cmp eax, 0
+    je triggerbot
+    lea eax, [crosshairID]
+    mov ebx, [localPlayer]
+    add ebx, [crosshairIdOffset]
+    invoke ReadProcessMemory, dword [processHandle], ebx, eax, 4, NULL
+    cmp [crosshairID], 0
+    jle triggerbot
+    cmp [crosshairID], 64
+    jg triggerbot
+    lea eax, [team]
+    mov ebx, [localPlayer]
+    add ebx, [teamOffset]
+    invoke ReadProcessMemory, dword [processHandle], ebx, eax, 4, NULL
+    dec [crosshairID]
+    mov eax, [crosshairID]
+    mov ecx, 0x10
+    mul ecx
+    mov eax, [clientBase]
+    add eax, [entityListOffset]
+    lea ebx, [entity]
+    invoke ReadProcessMemory, dword [processHandle], eax, ebx, 4, NULL
+    mov eax, [entity]
+    add eax, [teamOffset]
+    lea ebx, [entityTeam]
+    invoke ReadProcessMemory, dword [processHandle], eax, ebx, 4, NULL
+    mov eax, [entityTeam]
+    cmp eax, [team]
+    je triggerbot
+    mov eax, [clientBase]
+    add eax, [forceAttackOffset]
+    lea ebx, [force1]
+    invoke WriteProcessMemory, dword [processHandle], eax, ebx, 4, NULL
+    invoke Sleep, 1
+    mov eax, [clientBase]
+    add eax, [forceAttackOffset]
+    lea ebx, [force2]
+    invoke WriteProcessMemory, dword [processHandle], eax, ebx, 4, NULL
+    jmp triggerbot
     invoke ExitProcess, 0
 
 error:
@@ -126,6 +172,8 @@ crosshairID dd ?
 forceAttack dd ?
 team dd ?
 entityList dd ?
+entity dd ?
+entityTeam dd ?
 
 section '.rdata' data readable
 
@@ -134,6 +182,8 @@ crosshairIdOffset dd 0xB2DC
 forceAttackOffset dd 0x307FD44
 teamOffset dd 0xF0
 entityListOffset dd 0x4C3E674
+force1 dd 5
+force2 dd 4
 
 section '.idata' data readable import
 
@@ -151,7 +201,8 @@ import kernel32, \
        ReadProcessMemory, 'ReadProcessMemory', \
        WriteProcessMemory, 'WriteProcessMemory', \
        ExitProcess, 'ExitProcess', \
-       GetLastError, 'GetLastError'
+       GetLastError, 'GetLastError', \
+       Sleep, 'Sleep'
 
 import msvcrt, \
        strcmp, 'strcmp', \
