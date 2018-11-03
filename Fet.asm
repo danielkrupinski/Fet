@@ -127,6 +127,7 @@ import kernel32, \
        OpenProcess, 'OpenProcess', \
        Process32First, 'Process32First', \
        Process32Next, 'Process32Next', \
+       ReadProcessMemory, 'ReadProcessMemory', \
        ExitProcess, 'ExitProcess'
 
 import msvcrt, \
