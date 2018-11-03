@@ -33,6 +33,7 @@ section '.text' code executable
 
 main:
     stdcall findProcessId
+    stdcall findModuleBase, eax
     invoke ExitProcess, 0
 
 error:
@@ -67,13 +68,13 @@ proc findProcessId
     ret
 endp
 
-proc findModuleBase
+proc findModuleBase, processID
     locals
         moduleEntry MODULEENTRY32 ?
         snapshot dd ?
     endl
 
-    invoke CreateToolhelp32Snapshot, 0x8, pid
+    invoke CreateToolhelp32Snapshot, 0x8, [processID]
     mov [snapshot], eax
     mov [moduleEntry.dwSize], sizeof.MODULEENTRY32
     lea eax, [snapshot]
@@ -81,7 +82,7 @@ proc findModuleBase
     invoke Module32First, dword [eax], ebx
     cmp eax, 1
     jne error
-    loop1:
+    loop2:
         lea eax, [snapshot]
         lea ebx, [moduleEntry]
         invoke Module32Next, dword [eax], ebx
@@ -90,7 +91,7 @@ proc findModuleBase
         lea eax, [moduleEntry.szModule]
         cinvoke strcmp, <'client_panorama.dll', 0>, eax
         cmp eax, 0
-        jne loop1
+        jne loop2
 
     mov eax, [moduleEntry.modBaseAddr]
     ret
@@ -111,4 +112,4 @@ import kernel32, \
        ExitProcess, 'ExitProcess'
 
 import msvcrt, \
-       strcmp, 'strcmp', \
+       strcmp, 'strcmp'
