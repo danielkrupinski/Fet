@@ -101,12 +101,19 @@ endp
 
 section '.bss' data readable writable
 
+localPlayer dd ?
+crosshairID dd ?
+forceAttack dd ?
+team dd ?
+entityList dd ?
 
 section '.rdata' data readable
 
 localPlayerOffset dd 0xC618AC
 crosshairIdOffset dd 0xB2DC
 forceAttackOffset dd 0x307FD44
+teamOffset dd 0xF0
+entityListOffset dd 0x4C3E674
 
 section '.idata' data readable import
 
