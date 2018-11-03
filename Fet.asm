@@ -33,8 +33,25 @@ section '.text' code executable
 
 main:
     stdcall findProcessId
+    mov [processId], eax
     stdcall findModuleBase, eax
-    cinvoke printf, <'Client base: %d', 0>, eax
+    mov [clientBase], eax
+    cinvoke printf, <'Client base: %d', 0>, [clientBase]
+    cinvoke getchar
+    cinvoke printf, <'PID: %d', 0>, [processId]
+    invoke OpenProcess, PROCESS_VM_READ + PROCESS_VM_WRITE, FALSE, [processId]
+    mov [processHandle], eax
+    cinvoke printf, <'Handle: %d', 0>, eax
+
+    loop1:
+    lea eax, [localPlayer]
+    mov ebx, [clientBase]
+    add ebx, [localPlayerOffset]
+    invoke ReadProcessMemory, dword [processHandle], ebx, eax, 4, NULL
+    cmp [localPlayer], 0
+    je loop1
+
+    cinvoke printf, <'LocalPlayer: %d', 0>, [localPlayer]
     cinvoke getchar
     invoke ExitProcess, 0
 
@@ -55,7 +72,7 @@ proc findProcessId
     invoke Process32First, dword [eax], ebx
     cmp eax, 1
     jne error
-    loop1:
+    loop2:
         lea eax, [snapshot]
         lea ebx, [processEntry]
         invoke Process32Next, dword [eax], ebx
@@ -64,7 +81,7 @@ proc findProcessId
         lea eax, [processEntry.szExeFile]
         cinvoke strcmp, <'csgo.exe', 0>, eax
         cmp eax, 0
-        jne loop1
+        jne loop2
 
     mov eax, [processEntry.th32ProcessID]
     ret
@@ -84,7 +101,7 @@ proc findModuleBase, processID
     invoke Module32First, dword [eax], ebx
     cmp eax, 1
     jne error
-    loop2:
+    loop3:
         lea eax, [snapshot]
         lea ebx, [moduleEntry]
         invoke Module32Next, dword [eax], ebx
@@ -93,7 +110,7 @@ proc findModuleBase, processID
         lea eax, [moduleEntry.szModule]
         cinvoke strcmp, <'client_panorama.dll', 0>, eax
         cmp eax, 0
-        jne loop2
+        jne loop3
 
     mov eax, [moduleEntry.modBaseAddr]
     ret
@@ -101,6 +118,9 @@ endp
 
 section '.bss' data readable writable
 
+processId dd ?
+processHandle dd ?
+clientBase dd ?
 localPlayer dd ?
 crosshairID dd ?
 forceAttack dd ?
@@ -118,7 +138,8 @@ entityListOffset dd 0x4C3E674
 section '.idata' data readable import
 
 library kernel32, 'kernel32.dll', \
-        msvcrt, 'msvcrt.dll'
+        msvcrt, 'msvcrt.dll', \
+        user32, 'user32.dll'
 
 import kernel32, \
        CreateToolhelp32Snapshot, 'CreateToolhelp32Snapshot', \
@@ -129,9 +150,13 @@ import kernel32, \
        Process32Next, 'Process32Next', \
        ReadProcessMemory, 'ReadProcessMemory', \
        WriteProcessMemory, 'WriteProcessMemory', \
-       ExitProcess, 'ExitProcess'
+       ExitProcess, 'ExitProcess', \
+       GetLastError, 'GetLastError'
 
 import msvcrt, \
        strcmp, 'strcmp', \
        printf, 'printf', \
        getchar, 'getchar'
+
+import user32, \
+       GetAsyncKeyState, 'GetAsyncKeyState'
