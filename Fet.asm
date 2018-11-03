@@ -104,6 +104,10 @@ section '.bss' data readable writable
 
 section '.rdata' data readable
 
+localPlayerOffset dd 0xC618AC
+crosshairIdOffset dd 0xB2DC
+forceAttackOffset dd 0x307FD44
+
 section '.idata' data readable import
 
 library kernel32, 'kernel32.dll', \
