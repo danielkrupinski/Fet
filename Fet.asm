@@ -177,11 +177,11 @@ entityTeam dd ?
 
 section '.rdata' data readable
 
-localPlayerOffset dd 0xC618AC
+localPlayerOffset dd 0xC638AC
 crosshairIdOffset dd 0xB2DC
-forceAttackOffset dd 0x307FD44
+forceAttackOffset dd 0x3081D40
 teamOffset dd 0xF0
-entityListOffset dd 0x4C3E674
+entityListOffset dd 0x4C40664
 force1 dd 5
 force2 dd 4
 
