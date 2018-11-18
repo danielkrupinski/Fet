@@ -81,6 +81,7 @@ main:
     add eax, [forceAttackOffset]
     lea ebx, [force1]
     invoke WriteProcessMemory, dword [processHandle], eax, ebx, 4, NULL
+	invoke Sleep, 1
     mov eax, [clientBase]
     add eax, [forceAttackOffset]
     lea ebx, [force2]
