@@ -36,7 +36,7 @@ main:
     mov [processId], eax
     stdcall findModuleBase, eax
     mov [clientBase], eax
-    invoke OpenProcess, PROCESS_ALL_ACCESS, FALSE, [processId]
+    invoke OpenProcess, PROCESS_VM_READ + PROCESS_VM_WRITE + PROCESS_VM_OPERATION, FALSE, [processId]
     mov [processHandle], eax
 
     triggerbot:
