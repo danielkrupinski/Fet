@@ -43,22 +43,13 @@ main:
     mov [processHandle], eax
     cinvoke printf, <'Handle: %d', 0>, eax
 
-    loop1:
+    triggerbot:
     lea eax, [localPlayer]
     mov ebx, [clientBase]
     add ebx, [localPlayerOffset]
     invoke ReadProcessMemory, dword [processHandle], ebx, eax, 4, NULL
     cmp [localPlayer], 0
-    je loop1
-
-    cinvoke printf, <'LocalPlayer: %d', 0>, [localPlayer]
-    cinvoke getchar
-
-    triggerbot:
-    mov [crosshairID], 0
-    mov [team], 0
-    cmp [localPlayer], 0
-    je loop1
+    je triggerbot
     invoke GetAsyncKeyState, 0x12
     cmp eax, 0
     je triggerbot
@@ -74,7 +65,6 @@ main:
     mov ebx, [localPlayer]
     add ebx, [teamOffset]
     invoke ReadProcessMemory, dword [processHandle], ebx, eax, 4, NULL
-    dec [crosshairID]
     mov eax, [crosshairID]
     mov ecx, 0x10
     mul ecx
