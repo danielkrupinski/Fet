@@ -66,9 +66,10 @@ main:
     add ebx, [teamOffset]
     invoke ReadProcessMemory, dword [processHandle], ebx, eax, 4, NULL
     mov eax, [crosshairID]
+	dec eax
     mov ecx, 0x10
     mul ecx
-    mov eax, [clientBase]
+    add eax, [clientBase]
     add eax, [entityListOffset]
     lea ebx, [entity]
     invoke ReadProcessMemory, dword [processHandle], eax, ebx, 4, NULL
