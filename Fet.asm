@@ -36,12 +36,8 @@ main:
     mov [processId], eax
     stdcall findModuleBase, eax
     mov [clientBase], eax
-    cinvoke printf, <'Client base: %d', 0>, [clientBase]
-    cinvoke getchar
-    cinvoke printf, <'PID: %d', 0>, [processId]
     invoke OpenProcess, PROCESS_ALL_ACCESS, FALSE, [processId]
     mov [processHandle], eax
-    cinvoke printf, <'Handle: %d', 0>, eax
 
     triggerbot:
 	invoke Sleep, 1
