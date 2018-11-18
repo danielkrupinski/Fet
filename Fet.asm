@@ -191,13 +191,10 @@ import kernel32, \
        ReadProcessMemory, 'ReadProcessMemory', \
        WriteProcessMemory, 'WriteProcessMemory', \
        ExitProcess, 'ExitProcess', \
-       GetLastError, 'GetLastError', \
        Sleep, 'Sleep'
 
 import msvcrt, \
-       strcmp, 'strcmp', \
-       printf, 'printf', \
-       getchar, 'getchar'
+       strcmp, 'strcmp'
 
 import user32, \
        GetAsyncKeyState, 'GetAsyncKeyState'
