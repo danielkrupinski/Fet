@@ -179,7 +179,8 @@ section '.idata' data readable import
 
 library kernel32, 'kernel32.dll', \
         msvcrt, 'msvcrt.dll', \
-        user32, 'user32.dll'
+        user32, 'user32.dll', \
+        ntdll, 'ntdll.dll'
 
 import kernel32, \
        CreateToolhelp32Snapshot, 'CreateToolhelp32Snapshot', \
