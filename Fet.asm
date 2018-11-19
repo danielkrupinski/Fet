@@ -201,4 +201,5 @@ import user32, \
        GetAsyncKeyState, 'GetAsyncKeyState'
 
 import ntdll, \
-       NtReadVirtualMemory, 'NtReadVirtualMemory'
+       NtReadVirtualMemory, 'NtReadVirtualMemory', \
+       NtWriteVirtualMemory, 'NtWriteVirtualMemory'
