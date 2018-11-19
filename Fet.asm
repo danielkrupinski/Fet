@@ -40,13 +40,13 @@ main:
     mov [processHandle], eax
 
     triggerbot:
-	invoke Sleep, 1
+    invoke Sleep, 1
     lea eax, [localPlayer]
     mov ebx, [clientBase]
     add ebx, [localPlayerOffset]
     invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
-	cmp eax, 0
-	jne error
+    cmp eax, 0
+    jne error
     cmp [localPlayer], 0
     je triggerbot
     invoke GetAsyncKeyState, 0x12
@@ -65,7 +65,7 @@ main:
     add ebx, [teamOffset]
     invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
     mov eax, [crosshairID]
-	dec eax
+    dec eax
     mov ecx, 0x10
     mul ecx
     add eax, [clientBase]
@@ -83,7 +83,7 @@ main:
     add eax, [forceAttackOffset]
     lea ebx, [force1]
     invoke NtWriteVirtualMemory, dword [processHandle], eax, ebx, 4, NULL
-	invoke Sleep, 1
+    invoke Sleep, 1
     mov eax, [clientBase]
     add eax, [forceAttackOffset]
     lea ebx, [force2]
