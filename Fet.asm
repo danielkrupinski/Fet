@@ -199,3 +199,6 @@ import msvcrt, \
 
 import user32, \
        GetAsyncKeyState, 'GetAsyncKeyState'
+
+import ntdll, \
+       NtReadVirtualMemory, 'NtReadVirtualMemory'
