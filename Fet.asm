@@ -46,7 +46,7 @@ main:
     add ebx, [localPlayerOffset]
     invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
 	cmp eax, 0
-	je error
+	jne error
     cmp [localPlayer], 0
     je triggerbot
     invoke GetAsyncKeyState, 0x12
