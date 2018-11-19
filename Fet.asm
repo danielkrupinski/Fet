@@ -189,8 +189,6 @@ import kernel32, \
        OpenProcess, 'OpenProcess', \
        Process32First, 'Process32First', \
        Process32Next, 'Process32Next', \
-       ReadProcessMemory, 'ReadProcessMemory', \
-       WriteProcessMemory, 'WriteProcessMemory', \
        ExitProcess, 'ExitProcess', \
        Sleep, 'Sleep'
 
