@@ -44,7 +44,7 @@ main:
     lea eax, [localPlayer]
     mov ebx, [clientBase]
     add ebx, [localPlayerOffset]
-    invoke ReadProcessMemory, dword [processHandle], ebx, eax, 4, NULL
+    invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
 	cmp eax, 0
 	je error
     cmp [localPlayer], 0
@@ -55,7 +55,7 @@ main:
     lea eax, [crosshairID]
     mov ebx, [localPlayer]
     add ebx, [crosshairIdOffset]
-    invoke ReadProcessMemory, dword [processHandle], ebx, eax, 4, NULL
+    invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
     cmp [crosshairID], 0
     jle triggerbot
     cmp [crosshairID], 64
@@ -63,7 +63,7 @@ main:
     lea eax, [team]
     mov ebx, [localPlayer]
     add ebx, [teamOffset]
-    invoke ReadProcessMemory, dword [processHandle], ebx, eax, 4, NULL
+    invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
     mov eax, [crosshairID]
 	dec eax
     mov ecx, 0x10
@@ -71,11 +71,11 @@ main:
     add eax, [clientBase]
     add eax, [entityListOffset]
     lea ebx, [entity]
-    invoke ReadProcessMemory, dword [processHandle], eax, ebx, 4, NULL
+    invoke NtReadVirtualMemory, dword [processHandle], eax, ebx, 4, NULL
     mov eax, [entity]
     add eax, [teamOffset]
     lea ebx, [entityTeam]
-    invoke ReadProcessMemory, dword [processHandle], eax, ebx, 4, NULL
+    invoke NtReadVirtualMemory, dword [processHandle], eax, ebx, 4, NULL
     mov eax, [entityTeam]
     cmp eax, [team]
     je triggerbot
