@@ -40,7 +40,8 @@ main:
     mov [processHandle], eax
 
     triggerbot:
-    invoke Sleep, 1
+    lea eax, [sleepDuration]
+    invoke NtDelayExecution, FALSE, eax
     lea eax, [localPlayer]
     mov ebx, [clientBase]
     add ebx, [localPlayerOffset]
@@ -83,7 +84,8 @@ main:
     add eax, [forceAttackOffset]
     lea ebx, [force1]
     invoke NtWriteVirtualMemory, dword [processHandle], eax, ebx, 4, NULL
-    invoke Sleep, 1
+    lea eax, [sleepDuration]
+    invoke NtDelayExecution, FALSE, eax
     mov eax, [clientBase]
     add eax, [forceAttackOffset]
     lea ebx, [force2]
