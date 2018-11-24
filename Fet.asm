@@ -48,7 +48,8 @@ main:
     invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
     test eax, eax
     jnz error
-    test [localPlayer], [localPlayer]
+    mov eax, [localPlayer]
+    test eax, eax
     jz triggerbot
     invoke GetAsyncKeyState, 0x12
     test eax, eax
@@ -57,7 +58,8 @@ main:
     mov ebx, [localPlayer]
     add ebx, [crosshairIdOffset]
     invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
-    test [crosshairID], [crosshairID]
+    mov eax, [crosshairID]
+    test eax, eax
     jz triggerbot
     cmp [crosshairID], 64
     jg triggerbot
