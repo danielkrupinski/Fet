@@ -46,19 +46,19 @@ main:
     mov ebx, [clientBase]
     add ebx, [localPlayerOffset]
     invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
-    cmp eax, 0
-    jne error
-    cmp [localPlayer], 0
-    je triggerbot
+    test eax, eax
+    jnz error
+    test [localPlayer], [localPlayer]
+    jz triggerbot
     invoke GetAsyncKeyState, 0x12
-    cmp eax, 0
-    je triggerbot
+    test eax, eax
+    jz triggerbot
     lea eax, [crosshairID]
     mov ebx, [localPlayer]
     add ebx, [crosshairIdOffset]
     invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
-    cmp [crosshairID], 0
-    jle triggerbot
+    test [crosshairID], [crosshairID]
+    jz triggerbot
     cmp [crosshairID], 64
     jg triggerbot
     lea eax, [team]
@@ -118,8 +118,8 @@ proc findProcessId
         jne error
         lea eax, [processEntry.szExeFile]
         cinvoke strcmp, <'csgo.exe', 0>, eax
-        cmp eax, 0
-        jne loop2
+        test eax, eax
+        jnz loop2
 
     mov eax, [processEntry.th32ProcessID]
     ret
@@ -147,8 +147,8 @@ proc findModuleBase, processID
         jne error
         lea eax, [moduleEntry.szModule]
         cinvoke strcmp, <'client_panorama.dll', 0>, eax
-        cmp eax, 0
-        jne loop3
+        test eax, eax
+        jnz loop3
 
     mov eax, [moduleEntry.modBaseAddr]
     ret
