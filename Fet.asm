@@ -176,7 +176,7 @@ teamOffset dd 0xF0
 entityListOffset dd 0x4C41704
 force1 dd 5
 force2 dd 4
-sleepDuration dq -10
+sleepDuration dq -1
 
 section '.idata' data readable import
 
