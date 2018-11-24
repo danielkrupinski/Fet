@@ -192,8 +192,7 @@ import kernel32, \
        OpenProcess, 'OpenProcess', \
        Process32First, 'Process32First', \
        Process32Next, 'Process32Next', \
-       ExitProcess, 'ExitProcess', \
-       Sleep, 'Sleep'
+       ExitProcess, 'ExitProcess'
 
 import msvcrt, \
        strcmp, 'strcmp'
