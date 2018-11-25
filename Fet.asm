@@ -47,7 +47,7 @@ triggerbot:
     add ebx, [localPlayerOffset]
     invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
     test eax, eax
-    jnz error
+    jnz exit
     mov eax, [localPlayer]
     test eax, eax
     jz triggerbot
@@ -95,7 +95,7 @@ triggerbot:
     jmp triggerbot
     invoke ExitProcess, 0
 
-error:
+exit:
     invoke ExitProcess, 1
 
 proc findProcessId
