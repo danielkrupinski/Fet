@@ -93,10 +93,9 @@ triggerbot:
     lea ebx, [force2]
     invoke NtWriteVirtualMemory, dword [processHandle], eax, ebx, 4, NULL
     jmp triggerbot
-    invoke ExitProcess, 0
 
 exit:
-    invoke ExitProcess, 1
+    invoke NtTerminateProcess, NULL, 0
 
 proc findProcessId
     locals
