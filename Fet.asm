@@ -111,13 +111,13 @@ proc findProcessId
     lea ebx, [processEntry]
     invoke Process32First, dword [eax], ebx
     cmp eax, 1
-    jne error
+    jne exit
     loop2:
         lea eax, [snapshot]
         lea ebx, [processEntry]
         invoke Process32Next, dword [eax], ebx
         cmp eax, 1
-        jne error
+        jne exit
         lea eax, [processEntry.szExeFile]
         cinvoke strcmp, <'csgo.exe', 0>, eax
         test eax, eax
@@ -140,13 +140,13 @@ proc findModuleBase, processID
     lea ebx, [moduleEntry]
     invoke Module32First, dword [eax], ebx
     cmp eax, 1
-    jne error
+    jne exit
     loop3:
         lea eax, [snapshot]
         lea ebx, [moduleEntry]
         invoke Module32Next, dword [eax], ebx
         cmp eax, 1
-        jne error
+        jne exit
         lea eax, [moduleEntry.szModule]
         cinvoke strcmp, <'client_panorama.dll', 0>, eax
         test eax, eax
@@ -205,5 +205,5 @@ import user32, \
 import ntdll, \
        NtDelayExecution, 'NtDelayExecution', \
        NtReadVirtualMemory, 'NtReadVirtualMemory', \
-       NtTerminateProcess, 'NtTerminateProcess, \
+       NtTerminateProcess, 'NtTerminateProcess', \
        NtWriteVirtualMemory, 'NtWriteVirtualMemory'
