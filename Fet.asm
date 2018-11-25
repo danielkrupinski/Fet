@@ -62,7 +62,7 @@ triggerbot:
     test eax, eax
     jz triggerbot
     cmp [crosshairID], 64
-    jg triggerbot
+    ja triggerbot
     lea eax, [team]
     mov ebx, [localPlayer]
     add ebx, [teamOffset]
