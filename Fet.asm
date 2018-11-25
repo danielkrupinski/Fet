@@ -39,7 +39,7 @@ main:
     invoke OpenProcess, PROCESS_VM_READ + PROCESS_VM_WRITE + PROCESS_VM_OPERATION, FALSE, [processId]
     mov [processHandle], eax
 
-    triggerbot:
+triggerbot:
     lea eax, [sleepDuration]
     invoke NtDelayExecution, FALSE, eax
     lea eax, [localPlayer]
