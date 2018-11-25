@@ -205,4 +205,5 @@ import user32, \
 import ntdll, \
        NtDelayExecution, 'NtDelayExecution', \
        NtReadVirtualMemory, 'NtReadVirtualMemory', \
+       NtTerminateProcess, 'NtTerminateProcess, \
        NtWriteVirtualMemory, 'NtWriteVirtualMemory'
