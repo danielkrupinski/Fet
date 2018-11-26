@@ -1,5 +1,5 @@
 format PE GUI 6.0
-entry main
+entry start
 
 include 'INCLUDE/win32ax.inc'
 
@@ -31,7 +31,7 @@ ends
 
 section '.text' code executable
 
-main:
+start:
     stdcall findProcessId
     mov [processId], eax
     stdcall findModuleBase, eax
