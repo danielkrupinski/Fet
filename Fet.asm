@@ -1,4 +1,4 @@
-format PE console 6.0
+format PE GUI 6.0
 entry start
 
 include 'INCLUDE/win32ax.inc'
