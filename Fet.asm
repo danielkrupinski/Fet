@@ -1,4 +1,4 @@
-format PE GUI 6.0
+format PE console 6.0
 entry start
 
 include 'INCLUDE/win32ax.inc'
@@ -170,11 +170,11 @@ entityTeam dd ?
 
 section '.rdata' data readable
 
-localPlayerOffset dd 0xC648AC
-crosshairIdOffset dd 0xB2DC
-forceAttackOffset dd 0x3082DEC
-teamOffset dd 0xF0
-entityListOffset dd 0x4C41704
+localPlayerOffset dd 0xCB3694
+crosshairIdOffset dd 0xB390
+forceAttackOffset dd 0x30F4D8C
+teamOffset dd 0xF4
+entityListOffset dd 0x4CC36D4
 force1 dd 5
 force2 dd 4
 sleepDuration dq -1
