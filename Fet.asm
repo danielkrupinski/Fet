@@ -172,9 +172,9 @@ section '.rdata' data readable
 
 localPlayerOffset dd 0xCB3694
 crosshairIdOffset dd 0xB390
-forceAttackOffset dd 0x30F4BD8
+forceAttackOffset dd 0x30F4C2C
 teamOffset dd 0xF4
-entityListOffset dd 0x4CC3514
+entityListOffset dd 0x4CC3574
 force1 dd 5
 force2 dd 4
 sleepDuration dq -1
