@@ -63,6 +63,19 @@ triggerbot:
     jz triggerbot
     cmp [crosshairID], 64
     ja triggerbot
+    ;"client_panorama.dll"+003F00D4
+    mov eax, [clientBase]
+    add eax, 0x3F00D4
+    lea ebx, [gameTypeCvar]
+    invoke NtReadVirtualMemory, dword [processHandle], eax, ebx, 4, NULL
+    mov eax, [gameTypeCvar]
+    add eax, 48
+    lea ebx, [gameTypeValue]
+    invoke NtReadVirtualMemory, dword [processHandle], eax, ebx, 4, NULL
+    mov eax, [gameTypeCvar]
+    xor eax, [gameTypeValue]
+    cmp eax, 6
+    je shoot
     lea eax, [team]
     mov ebx, [localPlayer]
     add ebx, [teamOffset]
@@ -82,6 +95,7 @@ triggerbot:
     mov eax, [entityTeam]
     cmp eax, [team]
     je triggerbot
+shoot:
     mov eax, [clientBase]
     add eax, [forceAttackOffset]
     lea ebx, [force1]
@@ -167,6 +181,8 @@ team dd ?
 entityList dd ?
 entity dd ?
 entityTeam dd ?
+gameTypeCvar dd ?
+gameTypeValue dd ?
 
 section '.rdata' data readable
 
