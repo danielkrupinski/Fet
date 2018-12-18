@@ -95,6 +95,7 @@ triggerbot:
     mov eax, [entityTeam]
     cmp eax, [team]
     je triggerbot
+    
 shoot:
     mov eax, [clientBase]
     add eax, [forceAttackOffset]
@@ -186,11 +187,11 @@ gameTypeValue dd ?
 
 section '.rdata' data readable
 
-localPlayerOffset dd 0xCB3694
+localPlayerOffset dd 0xCBD6B4
 crosshairIdOffset dd 0xB390
-forceAttackOffset dd 0x30F4C1C
+forceAttackOffset dd 0x30FF2C0
 teamOffset dd 0xF4
-entityListOffset dd 0x4CC3564
+entityListOffset dd 0x4CCDC14
 force1 dd 5
 force2 dd 4
 sleepDuration dq -1
