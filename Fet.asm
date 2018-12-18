@@ -63,9 +63,8 @@ triggerbot:
     jz triggerbot
     cmp [crosshairID], 64
     ja triggerbot
-    ;"client_panorama.dll"+003F00D4
     mov eax, [clientBase]
-    add eax, 0x3F00D4
+    add eax, 0x3EFFA4
     lea ebx, [gameTypeCvar]
     invoke NtReadVirtualMemory, dword [processHandle], eax, ebx, 4, NULL
     mov eax, [gameTypeCvar]
