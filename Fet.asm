@@ -29,6 +29,20 @@ struct MODULEENTRY32
        szExeFile               dw MAX_PATH dup (?)
 ends
 
+struct CLIENT_ID
+       UniqueProcess dd ?
+       UniqueThread  dd ?
+ends
+
+struct OBJECT_ATTRIBUTES
+       Length                      dd ?
+       RootDirectory               dd ?
+       ObjectName                  dd ?
+       Attributes                  dd ?
+       SecurityDescriptor          dd ?
+       SecurityQualityOfService    dd ?
+ends
+
 section '.text' code executable
 
 start:
