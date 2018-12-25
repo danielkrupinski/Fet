@@ -164,7 +164,8 @@ endp
 
 section '.bss' data readable writable
 
-processId dd ?
+clientId CLIENT_ID ?
+objectAttributes OBJECT_ATTRIBUTES ?
 processHandle dd ?
 clientBase dd ?
 localPlayer dd ?
