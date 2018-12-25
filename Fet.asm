@@ -33,11 +33,16 @@ section '.text' code executable
 
 start:
     stdcall findProcessId
-    mov [processId], eax
+    mov [clientId.UniqueProcess], eax
     stdcall findModuleBase, eax
     mov [clientBase], eax
-    invoke OpenProcess, PROCESS_VM_READ + PROCESS_VM_WRITE + PROCESS_VM_OPERATION, FALSE, [processId]
-    mov [processHandle], eax
+    mov [objectAttributes.Length], sizeof.OBJECT_ATTRIBUTES
+    lea eax, [processHandle]
+    lea ebx, [objectAttributes]
+    lea ecx, [clientId]
+    invoke NtOpenProcess, eax, PROCESS_VM_READ + PROCESS_VM_WRITE + PROCESS_VM_OPERATION, ebx, ecx
+    test eax, eax
+    jnz exit
 
 triggerbot:
     lea eax, [sleepDuration]
