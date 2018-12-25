@@ -48,9 +48,6 @@ triggerbot:
     invoke NtReadVirtualMemory, dword [processHandle], ebx, eax, 4, NULL
     test eax, eax
     jnz exit
-    mov eax, [localPlayer]
-    test eax, eax
-    jz triggerbot
     invoke GetAsyncKeyState, 0x12
     test eax, eax
     jz triggerbot
