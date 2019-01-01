@@ -114,13 +114,7 @@ triggerbot:
 shoot:
     mov eax, [clientBase]
     add eax, [forceAttackOffset]
-    lea ebx, [force1]
-    invoke NtWriteVirtualMemory, [processHandle], eax, ebx, 4, NULL
-    lea eax, [sleepDuration]
-    invoke NtDelayExecution, FALSE, eax
-    mov eax, [clientBase]
-    add eax, [forceAttackOffset]
-    lea ebx, [force2]
+    lea ebx, [force]
     invoke NtWriteVirtualMemory, [processHandle], eax, ebx, 4, NULL
     jmp triggerbot
 
@@ -204,8 +198,7 @@ crosshairIdOffset dd 0xB394
 forceAttackOffset dd 0x30FF2A0
 teamOffset dd 0xF4
 entityListOffset dd 0x4CCDBFC
-force1 dd 5
-force2 dd 4
+force dd 6
 sleepDuration dq -1
 
 section '.idata' data readable import
