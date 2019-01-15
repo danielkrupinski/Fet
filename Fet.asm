@@ -80,7 +80,7 @@ triggerbot:
     cmp [crosshairID], 64
     ja triggerbot
     mov eax, [clientBase]
-    add eax, 0x3F01C4
+    add eax, 0x3F0364
     lea ebx, [gameTypeCvar]
     invoke NtReadVirtualMemory, [processHandle], eax, ebx, 4, NULL
     mov eax, [gameTypeCvar]
@@ -193,11 +193,11 @@ gameTypeValue dd ?
 
 section '.rdata' data readable
 
-localPlayerOffset dd 0xCBD6B4
+localPlayerOffset dd 0xCBD6A4
 crosshairIdOffset dd 0xB394
-forceAttackOffset dd 0x30FF2A0
+forceAttackOffset dd 0x30FF2E0
 teamOffset dd 0xF4
-entityListOffset dd 0x4CCDBFC
+entityListOffset dd 0x4CCDC3C
 force dd 6
 sleepDuration dq -1
 
