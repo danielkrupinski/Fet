@@ -80,7 +80,7 @@ triggerbot:
     cmp [crosshairID], 64
     ja triggerbot
     mov eax, [clientBase]
-    add eax, 0x3F0364
+    add eax, 0x3F0644
     lea ebx, [gameTypeCvar]
     invoke NtReadVirtualMemory, [processHandle], eax, ebx, 4, NULL
     mov eax, [gameTypeCvar]
