@@ -193,9 +193,9 @@ gameTypeValue dd ?
 
 section '.rdata' data readable
 
-localPlayerOffset dd 0xCBD6A4
+localPlayerOffset dd 0xCBD6B4
 crosshairIdOffset dd 0xB394
-forceAttackOffset dd 0x30FF378
+forceAttackOffset dd 0x30FF360
 teamOffset dd 0xF4
 entityListOffset dd 0x4CCDCBC
 force dd 6
