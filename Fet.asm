@@ -193,11 +193,11 @@ gameTypeValue dd ?
 
 section '.rdata' data readable
 
-localPlayerOffset dd 0xCC96A4
+localPlayerOffset dd 0xCCA6A4
 crosshairIdOffset dd 0xB394
-forceAttackOffset dd 0x310B678
+forceAttackOffset dd 0x310C710
 teamOffset dd 0xF4
-entityListOffset dd 0x4CD9FBC
+entityListOffset dd 0x4CDB00C
 force dd 6
 sleepDuration dq -1
 
