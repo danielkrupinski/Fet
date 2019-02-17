@@ -87,21 +87,18 @@ start:
     jnz exit
 
 triggerbot:
-    lea eax, [sleepDuration]
-    invoke NtDelayExecution, FALSE, eax
-    lea eax, [localPlayer]
-    mov ebx, [clientBase]
-    add ebx, [localPlayerOffset]
-    invoke NtReadVirtualMemory, [processHandle], ebx, eax, 4, NULL
+    invoke NtDelayExecution, FALSE, sleepDuration
+    mov eax, [clientBase]
+    add eax, [localPlayerOffset]
+    invoke NtReadVirtualMemory, [processHandle], eax, localPlayer, 4, NULL
     test eax, eax
     jnz exit
     invoke GetAsyncKeyState, 0x12
     test eax, eax
     jz triggerbot
-    lea eax, [crosshairID]
-    mov ebx, [localPlayer]
-    add ebx, [crosshairIdOffset]
-    invoke NtReadVirtualMemory, [processHandle], ebx, eax, 4, NULL
+    mov eax, [localPlayer]
+    add eax, [crosshairIdOffset]
+    invoke NtReadVirtualMemory, [processHandle], eax, crosshairID, 4, NULL
     mov eax, [crosshairID]
     test eax, eax
     jz triggerbot
@@ -109,32 +106,27 @@ triggerbot:
     ja triggerbot
     mov eax, [clientBase]
     add eax, 0x3F2844
-    lea ebx, [gameTypeCvar]
-    invoke NtReadVirtualMemory, [processHandle], eax, ebx, 4, NULL
+    invoke NtReadVirtualMemory, [processHandle], eax, gameTypeCvar, 4, NULL
     mov eax, [gameTypeCvar]
     add eax, 48
-    lea ebx, [gameTypeValue]
-    invoke NtReadVirtualMemory, [processHandle], eax, ebx, 4, NULL
+    invoke NtReadVirtualMemory, [processHandle], eax, gameTypeValue, 4, NULL
     mov eax, [gameTypeCvar]
     xor eax, [gameTypeValue]
     cmp eax, 6
     je shoot
-    lea eax, [team]
-    mov ebx, [localPlayer]
-    add ebx, [teamOffset]
-    invoke NtReadVirtualMemory, [processHandle], ebx, eax, 4, NULL
+    mov eax, [localPlayer]
+    add eax, [teamOffset]
+    invoke NtReadVirtualMemory, [processHandle], eax, team, 4, NULL
     mov eax, [crosshairID]
     dec eax
     mov ecx, 0x10
     mul ecx
     add eax, [clientBase]
     add eax, [entityListOffset]
-    lea ebx, [entity]
-    invoke NtReadVirtualMemory, [processHandle], eax, ebx, 4, NULL
+    invoke NtReadVirtualMemory, [processHandle], eax, entity, 4, NULL
     mov eax, [entity]
     add eax, [teamOffset]
-    lea ebx, [entityTeam]
-    invoke NtReadVirtualMemory, [processHandle], eax, ebx, 4, NULL
+    invoke NtReadVirtualMemory, [processHandle], eax, entityTeam, 4, NULL
     mov eax, [entityTeam]
     cmp eax, [team]
     je triggerbot
@@ -142,8 +134,7 @@ triggerbot:
 shoot:
     mov eax, [clientBase]
     add eax, [forceAttackOffset]
-    lea ebx, [force]
-    invoke NtWriteVirtualMemory, [processHandle], eax, ebx, 4, NULL
+    invoke NtWriteVirtualMemory, [processHandle], eax, force, 4, NULL
     jmp triggerbot
 
 exit:
