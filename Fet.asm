@@ -169,7 +169,7 @@ entityListOffset dd 0x4CDB00C
 force dd 6
 sleepDuration dq -1
 
-section '.idata' data readable import
+section '.idata' import readable
 
 library kernel32, 'kernel32.dll', \
         msvcrt, 'msvcrt.dll', \
