@@ -138,7 +138,7 @@ shoot:
     jmp triggerbot
 
 exit:
-    invoke NtTerminateProcess, NULL, 0
+    retn
 
 section '.bss' data readable writable
 
@@ -191,5 +191,4 @@ import ntdll, \
        NtDelayExecution, 'NtDelayExecution', \
        NtOpenProcess, 'NtOpenProcess', \
        NtReadVirtualMemory, 'NtReadVirtualMemory', \
-       NtTerminateProcess, 'NtTerminateProcess', \
        NtWriteVirtualMemory, 'NtWriteVirtualMemory'
