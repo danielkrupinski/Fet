@@ -83,15 +83,15 @@ start:
     mov [clientBase], eax
     mov [forceAttack], eax
     mov [entityList], eax
+    mov [gameTypeCvar], eax
     mov [objectAttributes.Length], sizeof.OBJECT_ATTRIBUTES
     invoke NtOpenProcess, processHandle, PROCESS_VM_READ + PROCESS_VM_WRITE + PROCESS_VM_OPERATION, objectAttributes, clientId
     test eax, eax
     jnz exit
-    mov eax, [clientBase]
-    add eax, 0x3F2844
-    invoke NtReadVirtualMemory, [processHandle], eax, gameTypeCvar, 4, NULL
-    add [forceAttack], 0x310C710
-    add [entityList], 0x4CDB00C
+    add [forceAttack], 0x310C780
+    add [entityList], 0x4CDB07C
+    add [gameTypeCvar], 0x3F2B54
+    invoke NtReadVirtualMemory, [processHandle], [gameTypeCvar], gameTypeCvar, 4, NULL
 
 triggerbot:
     invoke NtDelayExecution, FALSE, sleepDuration
@@ -108,6 +108,8 @@ triggerbot:
     invoke NtReadVirtualMemory, [processHandle], eax, crosshairID, 4, NULL
     cmp [crosshairID], 0
     je triggerbot
+    cmp [crosshairID], 64
+    ja triggerbot
     mov eax, [gameTypeCvar]
     add eax, 48
     invoke NtReadVirtualMemory, [processHandle], eax, gameTypeValue, 4, NULL
@@ -159,7 +161,7 @@ gameTypeValue dd ?
 
 section '.rdata' data readable
 
-localPlayerOffset dd 0xCCA6A4
+localPlayerOffset dd 0xCCA6B4
 crosshairIdOffset dd 0xB394
 teamOffset dd 0xF4
 force dd 6
