@@ -88,8 +88,8 @@ start:
     invoke NtOpenProcess, processHandle, PROCESS_VM_READ + PROCESS_VM_WRITE + PROCESS_VM_OPERATION, objectAttributes, clientId
     test eax, eax
     jnz exit
-    add [forceAttack], 0x310D8A0
-    add [entityList], 0x4CDC19C
+    add [forceAttack], 0x310D8F0
+    add [entityList], 0x4CDC1EC
     add [gameTypeCvar], 0x3F3134
     invoke NtReadVirtualMemory, [processHandle], [gameTypeCvar], gameTypeCvar, 4, NULL
 
