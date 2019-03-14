@@ -88,8 +88,8 @@ start:
     invoke NtOpenProcess, processHandle, PROCESS_VM_READ + PROCESS_VM_WRITE + PROCESS_VM_OPERATION, objectAttributes, clientId
     test eax, eax
     jnz exit
-    add [forceAttack], 0x310D8F0
-    add [entityList], 0x4CDC1EC
+    add [forceAttack], 0x3114BC4
+    add [entityList], 0x4CE34FC
     add [gameTypeCvar], 0x3F3134
     invoke NtReadVirtualMemory, [processHandle], [gameTypeCvar], gameTypeCvar, 4, NULL
 
@@ -161,7 +161,7 @@ gameTypeValue dd ?
 
 section '.rdata' data readable
 
-localPlayerOffset dd 0xCCB774
+localPlayerOffset dd 0xCD2764
 crosshairIdOffset dd 0xB394
 teamOffset dd 0xF4
 force dd 6
