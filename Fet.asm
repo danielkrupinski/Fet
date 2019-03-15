@@ -90,7 +90,7 @@ start:
     jnz exit
     add [forceAttack], 0x3114BC4
     add [entityList], 0x4CE34FC
-    add [gameTypeCvar], 0x3F3134
+    add [gameTypeCvar], 0x3F3AB4
     invoke NtReadVirtualMemory, [processHandle], [gameTypeCvar], gameTypeCvar, 4, NULL
 
 triggerbot:
