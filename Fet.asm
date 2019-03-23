@@ -88,9 +88,9 @@ start:
     invoke NtOpenProcess, processHandle, PROCESS_VM_READ + PROCESS_VM_WRITE + PROCESS_VM_OPERATION, objectAttributes, clientId
     test eax, eax
     jnz exit
-    add [forceAttack], 0x3114BC4
-    add [entityList], 0x4CE34FC
-    add [gameTypeCvar], 0x3F3AB4
+    add [forceAttack], 0x3114BD4
+    add [entityList], 0x4CE350C
+    add [gameTypeCvar], 0x3F3D84
     invoke NtReadVirtualMemory, [processHandle], [gameTypeCvar], gameTypeCvar, 4, NULL
 
 triggerbot:
