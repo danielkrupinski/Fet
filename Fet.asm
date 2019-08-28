@@ -43,6 +43,13 @@ struct OBJECT_ATTRIBUTES
        SecurityQualityOfService    dd ?
 ends
 
+forceAttackOffset equ 0x3138480
+entityListOffset equ 0x4D06DC4
+gameTypeCvarOffset equ 0x23E230
+localPlayerOffset equ 0xCF4A4C
+crosshairIdOffset equ 0xB3AC
+teamOffset equ 0xF4
+
 section '.text' code executable
 
 start:
@@ -88,15 +95,15 @@ start:
     invoke NtOpenProcess, processHandle, PROCESS_VM_READ + PROCESS_VM_WRITE + PROCESS_VM_OPERATION, objectAttributes, clientId
     test eax, eax
     jnz exit
-    add [forceAttack], 0x3138480
-    add [entityList], 0x4D06DC4
-    add [gameTypeCvar], 0x23E230
+    add [forceAttack], forceAttackOffset
+    add [entityList], entityListOffset
+    add [gameTypeCvar], gameTypeCvarOffset
     invoke NtReadVirtualMemory, [processHandle], [gameTypeCvar], gameTypeCvar, 4, NULL
 
 triggerbot:
     invoke NtDelayExecution, FALSE, sleepDuration
     mov eax, [clientBase]
-    add eax, [localPlayerOffset]
+    add eax, localPlayerOffset
     invoke NtReadVirtualMemory, [processHandle], eax, localPlayer, 4, NULL
     test eax, eax
     jnz exit
@@ -104,7 +111,7 @@ triggerbot:
     test eax, eax
     jz triggerbot
     mov eax, [localPlayer]
-    add eax, [crosshairIdOffset]
+    add eax, crosshairIdOffset
     invoke NtReadVirtualMemory, [processHandle], eax, crosshairID, 4, NULL
     cmp [crosshairID], 0
     je triggerbot
@@ -118,7 +125,7 @@ triggerbot:
     cmp eax, 6
     je shoot
     mov eax, [localPlayer]
-    add eax, [teamOffset]
+    add eax, teamOffset
     invoke NtReadVirtualMemory, [processHandle], eax, team, 4, NULL
     mov eax, [crosshairID]
     dec eax
@@ -127,7 +134,7 @@ triggerbot:
     add eax, [entityList]
     invoke NtReadVirtualMemory, [processHandle], eax, entity, 4, NULL
     mov eax, [entity]
-    add eax, [teamOffset]
+    add eax, teamOffset
     invoke NtReadVirtualMemory, [processHandle], eax, entityTeam, 4, NULL
     mov eax, [entityTeam]
     cmp eax, [team]
@@ -161,9 +168,6 @@ gameTypeValue dd ?
 
 section '.rdata' data readable
 
-localPlayerOffset dd 0xCF4A4C
-crosshairIdOffset dd 0xB3AC
-teamOffset dd 0xF4
 force dd 6
 sleepDuration dq -1
 
