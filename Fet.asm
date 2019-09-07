@@ -52,6 +52,9 @@ teamOffset equ 0xF4
 
 section '.text' code executable
 
+force dd 6
+sleepDuration dq -1
+
 start:
     invoke CreateToolhelp32Snapshot, 0x2, 0
     mov [snapshot], eax
@@ -165,11 +168,6 @@ entity dd ?
 entityTeam dd ?
 gameTypeCvar dd ?
 gameTypeValue dd ?
-
-section '.rdata' data readable
-
-force dd 6
-sleepDuration dq -1
 
 section '.idata' import readable
 
