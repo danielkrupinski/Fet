@@ -43,11 +43,12 @@ struct OBJECT_ATTRIBUTES
        SecurityQualityOfService    dd ?
 ends
 
-forceAttackOffset equ 0x3139490
-entityListOffset equ 0x4D07DD4
-gameTypeCvarOffset equ 0x23E230
-localPlayerOffset equ 0xCF5A4C
-crosshairIdOffset equ 0xB3AC
+forceAttackOffset equ 0x3181790
+entityListOffset equ 0x4D5022C
+; TODO: update this
+; gameTypeCvarOffset equ 0x23E230
+localPlayerOffset equ 0xD3BC5C
+crosshairIdOffset equ 0xB3E4
 teamOffset equ 0xF4
 
 section '.text' code executable
@@ -84,7 +85,7 @@ start:
         invoke Module32Next, [snapshot], clientDll
         cmp eax, 1
         jne exit
-        cinvoke strcmp, <'client_panorama.dll', 0>, clientDll.szModule
+        cinvoke strcmp, <'client.dll', 0>, clientDll.szModule
         test eax, eax
         jnz loop3
 
@@ -100,8 +101,8 @@ start:
     jnz exit
     add [forceAttack], forceAttackOffset
     add [entityList], entityListOffset
-    add [gameTypeCvar], gameTypeCvarOffset
-    invoke NtReadVirtualMemory, [processHandle], [gameTypeCvar], gameTypeCvar, 4, NULL
+    ; add [gameTypeCvar], gameTypeCvarOffset
+    ; invoke NtReadVirtualMemory, [processHandle], [gameTypeCvar], gameTypeCvar, 4, NULL
 
 triggerbot:
     invoke NtDelayExecution, FALSE, sleepDuration
@@ -120,13 +121,13 @@ triggerbot:
     je triggerbot
     cmp [crosshairID], 64
     ja triggerbot
-    mov eax, [gameTypeCvar]
-    add eax, 48
-    invoke NtReadVirtualMemory, [processHandle], eax, gameTypeValue, 4, NULL
-    mov eax, [gameTypeCvar]
-    xor eax, [gameTypeValue]
-    cmp eax, 6
-    je shoot
+    ; mov eax, [gameTypeCvar]
+    ; add eax, 48
+    ; invoke NtReadVirtualMemory, [processHandle], eax, gameTypeValue, 4, NULL
+    ; mov eax, [gameTypeCvar]
+    ; xor eax, [gameTypeValue]
+    ; cmp eax, 6
+    ;je shoot
     mov eax, [localPlayer]
     add eax, teamOffset
     invoke NtReadVirtualMemory, [processHandle], eax, team, 4, NULL
