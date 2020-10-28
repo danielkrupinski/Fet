@@ -43,8 +43,8 @@ struct OBJECT_ATTRIBUTES
        SecurityQualityOfService    dd ?
 ends
 
-forceAttackOffset equ 0x3183930
-entityListOffset equ 0x4D523AC
+forceAttackOffset equ 0x3183920
+entityListOffset equ 0x4D5239C
 ; TODO: update this
 ; gameTypeCvarOffset equ 0x23E230
 localPlayerOffset equ 0xD3DD14
